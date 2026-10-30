@@ -1,49 +1,52 @@
 # jameskunley.com
 
-Personal website of James Kunley. Built with [Astro](https://astro.build), deployed to GitHub Pages.
+[![jameskunley.com](src/assets/og-default.jpg)](https://jameskunley.com)
 
-## Develop
+Source for [jameskunley.com](https://jameskunley.com), the personal website of James Kunley, a software engineer focused on distributed systems, software architecture, and real-time applications.
+
+## Stack
+
+- [Astro](https://astro.build) with TypeScript, statically generated
+- Hand-written CSS with no framework, and no client-side JavaScript
+- Self-hosted fonts via the Astro Fonts API (Newsreader and Inter)
+- Markdown content collections with typed frontmatter
+- GitHub Actions deploying to GitHub Pages on a custom domain
+
+## Project structure
+
+```text
+src/
+├── site.config.ts      Profile, expertise, impact, philosophy, background, contacts
+├── pages/              Routes (homepage, 404, RSS, optional blog and work pages)
+├── components/         Header, footer, section layout, lists
+├── layouts/            Base page shell and blog post layout
+├── content/            Markdown for blog posts and projects
+├── styles/global.css   Design tokens and base styles
+└── assets/             Profile photo and social preview image
+public/                 CNAME, robots.txt, favicon
+```
+
+## Development
+
+Requires Node.js 22.23 or later.
 
 ```sh
 npm install
 npm run dev     # http://localhost:4321
 npm run check   # type-check
-npm run build   # output in dist/
+npm run build   # production build in dist/
 ```
 
-## Content
+## Editing content
 
-- **Profile, contacts, expertise, experience:** `src/site.config.ts`. Empty sections are hidden.
-- **Photo:** `src/assets/profile.jpg`
-- **Résumé:** add a PDF to `public/` and set `PROFILE.resume` (e.g. `'/resume.pdf'`).
-- **Blog posts:** `src/content/blog/<slug>.md`
-- **Projects:** `src/content/projects/<slug>.md`
+Most content lives in [`src/site.config.ts`](src/site.config.ts). Homepage sections with no content are hidden automatically.
 
-Frontmatter is validated by `src/content.config.ts`.
+Blog posts (`src/content/blog/*.md`) and projects (`src/content/projects/*.md`) are optional. Their pages and navigation links appear once the first file is added, and frontmatter is validated by [`src/content.config.ts`](src/content.config.ts).
 
-```md
----
-title: Post title
-description: One-sentence summary.
-pubDate: 2026-11-01
-tags: [architecture]
-draft: false
----
-```
+## Deployment
 
-```md
----
-title: Project title
-summary: One-sentence summary.
-role: Technical lead
-period: 2024–2025
-stack: [TypeScript, PostgreSQL]
-repo: https://github.com/jtkunley/example
-featured: true
-order: 1
----
-```
+Every push to `main` builds and deploys the site via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The custom domain is configured in `public/CNAME`.
 
-## Deploy
+## Usage
 
-Pushing to `main` builds and deploys via `.github/workflows/deploy.yml`. The custom domain is set in `public/CNAME`; DNS points `jameskunley.com` at GitHub Pages (A records `185.199.108–111.153`, `www` CNAME `jtkunley.github.io`).
+The code is shared for reference. The written content and photographs are © James Kunley and may not be reused without permission.
