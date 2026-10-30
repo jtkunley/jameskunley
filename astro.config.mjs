@@ -12,7 +12,7 @@ export default defineConfig({
 	trailingSlash: 'ignore',
 	integrations: [mdx(), sitemap({ filter: (page) => !page.endsWith('/404/') })],
 	markdown: {
-		shikiConfig: { theme: 'github-light' },
+		shikiConfig: { theme: 'vitesse-dark' },
 	},
 	fonts: [
 		{
