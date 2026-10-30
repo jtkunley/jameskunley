@@ -26,7 +26,7 @@ export const PROFILE = {
 export const LINKS = {
 	github: 'https://github.com/jtkunley',
 	linkedin: 'https://www.linkedin.com/in/jameskunley', // PLACEHOLDER
-	email: 'jtkunley@gmail.com',
+	email: 'jameskunley@gmail.com',
 };
 
 export const CONTACT = [
