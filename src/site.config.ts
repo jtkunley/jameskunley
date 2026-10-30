@@ -84,6 +84,8 @@ export const PHILOSOPHY = {
 export const BACKGROUND = {
 	summary: 'Experience across financial technology, enterprise logistics, and healthcare platforms.',
 	companies: ['TIBCO', 'HP', 'XPO Logistics', 'DexCare'],
-	personal:
-		'I’m a dad of two. Outside of work, I enjoy spending time with my kids, surfing, and exploring new places on my motorcycle.',
+	personal: {
+		title: 'Beyond Engineering',
+		body: 'Outside of engineering, I’m usually spending time with my two kids, catching waves, or exploring backroads on my motorcycle.',
+	},
 };
