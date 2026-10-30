@@ -188,6 +188,12 @@ const schema = {
 						</ul>
 					</div>
 				)}
+				{BACKGROUND.personal && (
+					<div class="personal">
+						<p class="label">A little about me</p>
+						<p>{BACKGROUND.personal}</p>
+					</div>
+				)}
 			</Section>
 		)
 	}
@@ -445,6 +451,19 @@ const schema = {
 	.companies .dotted {
 		font-size: var(--step-1);
 		color: var(--color-soft);
+	}
+	.personal {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-rule);
+	}
+	.personal .label {
+		margin-bottom: 0.75rem;
+	}
+	.personal p:not(.label) {
+		margin: 0;
+		max-width: 34rem;
+		color: var(--color-muted);
 	}
 
 	/* Connect */
