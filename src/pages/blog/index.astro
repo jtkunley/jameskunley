@@ -9,6 +9,7 @@ const posts = await getPosts();
 <BaseLayout
 	title="Writing"
 	description="Technical writing on software architecture, complex systems, and engineering practice."
+	noindex={posts.length === 0}
 >
 	<div class="container container--narrow">
 		<header class="page-header">

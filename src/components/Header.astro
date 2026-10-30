@@ -1,6 +1,14 @@
 ---
-import { NAV, PROFILE } from '../site.config';
+import { getPosts, getProjects } from '../lib/content';
+import { PROFILE } from '../site.config';
 import HeaderLink from './HeaderLink.astro';
+
+const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+const NAV = [
+	...(projects.length > 0 ? [{ href: '/work/', label: 'Work' }] : []),
+	...(posts.length > 0 ? [{ href: '/blog/', label: 'Writing' }] : []),
+	{ href: '/#connect', label: 'Connect' },
+];
 ---
 
 <header class="site-header">

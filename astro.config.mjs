@@ -1,6 +1,5 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
@@ -10,7 +9,7 @@ export default defineConfig({
 	// because the site lives at the domain root.
 	site: 'https://jameskunley.com',
 	trailingSlash: 'ignore',
-	integrations: [mdx(), sitemap({ filter: (page) => !page.endsWith('/404/') })],
+	integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') })],
 	markdown: {
 		shikiConfig: { theme: 'vitesse-dark' },
 	},

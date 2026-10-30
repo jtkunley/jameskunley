@@ -10,6 +10,7 @@ const projects = await getProjects();
 <BaseLayout
 	title="Work"
 	description="Selected engineering work: the problems, the architectural decisions, and the outcomes."
+	noindex={projects.length === 0}
 >
 	<div class="container">
 		<header class="page-header">
