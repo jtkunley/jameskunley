@@ -1,0 +1,43 @@
+---
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects } from '../../lib/content';
+import { LINKS } from '../../site.config';
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+	title="Projects"
+	description="Selected software projects with source code, technical write-ups, and the technologies used."
+>
+	<div class="container">
+		<header class="page-header">
+			<p class="eyebrow">Portfolio</p>
+			<h1>Projects</h1>
+			<p>
+				A selection of things I’ve built, what problem each one solved, and how. More on <a href={LINKS.github} rel="me noopener">GitHub</a>.
+			</p>
+		</header>
+		<ul class="projects">
+			{
+				projects.map((project) => (
+					<li>
+						<ProjectCard project={project} detailed headingLevel="h2" />
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</BaseLayout>
+
+<style>
+	.projects {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 26rem), 1fr));
+		gap: 1.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+</style>

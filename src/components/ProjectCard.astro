@@ -1,0 +1,91 @@
+---
+import { type CollectionEntry, render } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	// Render the full Markdown write-up instead of just the summary.
+	detailed?: boolean;
+	headingLevel?: 'h2' | 'h3';
+}
+
+const { project, detailed = false, headingLevel: Heading = 'h3' } = Astro.props;
+const { title, summary, tech, repo, demo } = project.data;
+const { Content } = detailed ? await render(project) : { Content: null };
+---
+
+<article class="project" id={project.id}>
+	<Heading class="title">
+		{detailed ? title : <a href={`/projects/#${project.id}`}>{title}</a>}
+	</Heading>
+	<p class="summary">{summary}</p>
+	{
+		Content && (
+			<div class="details">
+				<Content />
+			</div>
+		)
+	}
+	<ul class="tag-list" aria-label="Technologies">
+		{tech.map((t) => <li>{t}</li>)}
+	</ul>
+	{
+		(repo || demo) && (
+			<p class="links">
+				{repo && (
+					<a href={repo} rel="noopener">
+						Source on GitHub<span class="sr-only"> for {title}</span>
+						<span aria-hidden="true"> →</span>
+					</a>
+				)}
+				{demo && (
+					<a href={demo} rel="noopener">
+						Live demo<span class="sr-only"> of {title}</span>
+						<span aria-hidden="true"> →</span>
+					</a>
+				)}
+			</p>
+		)
+	}
+</article>
+
+<style>
+	.project {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		height: 100%;
+		padding: 1.5rem;
+		background: #fff;
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius);
+	}
+	.title {
+		font-size: var(--step-2);
+		margin: 0;
+	}
+	.title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+	.title a:hover {
+		color: var(--color-accent);
+	}
+	.summary {
+		margin: 0;
+		color: var(--color-muted);
+	}
+	.details :global(p) {
+		margin: 0 0 0.75em;
+	}
+	.details :global(p:last-child) {
+		margin: 0;
+	}
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.25rem;
+		margin: auto 0 0;
+		font-size: var(--step--1);
+		font-weight: 600;
+	}
+</style>
