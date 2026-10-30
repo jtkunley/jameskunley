@@ -6,7 +6,9 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	// Custom domain served by GitHub Pages (see public/CNAME). No `base` is needed
+	// because the site lives at the domain root.
+	site: 'https://jameskunley.com',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
