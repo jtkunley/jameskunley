@@ -13,7 +13,7 @@ export const SITE = {
 export const PROFILE = {
 	name: 'James Kunley',
 	role: 'Software Engineer',
-	location: 'City, State', // PLACEHOLDER
+	location: 'Vancouver, WA',
 	// PLACEHOLDER: one sentence that captures how you approach engineering.
 	statement: 'I design software systems that stay clear, dependable, and adaptable as they grow.',
 	// PLACEHOLDER
@@ -26,7 +26,7 @@ export const PROFILE = {
 export const LINKS = {
 	github: 'https://github.com/jtkunley',
 	linkedin: 'https://www.linkedin.com/in/jameskunley', // PLACEHOLDER
-	email: 'hello@jameskunley.com', // PLACEHOLDER
+	email: 'jtkunley@gmail.com',
 };
 
 export const CONTACT = [
