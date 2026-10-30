@@ -92,7 +92,7 @@ Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site 
 
 ### One-time setup
 
-1. Create the GitHub repository `jtkunley/jtkunley.github.io` and push `main`.
+1. Push `main` to [jtkunley/jameskunley](https://github.com/jtkunley/jameskunley). Because the site uses a custom domain, no `base` path is needed even though this isn't a `<user>.github.io` repository.
 2. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 3. In **Settings → Pages → Custom domain**, enter `jameskunley.com` and save.
 4. In Namecheap, under **Domain List → jameskunley.com → Advanced DNS**, remove any parking or URL redirect records and add:
