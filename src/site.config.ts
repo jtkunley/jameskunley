@@ -15,7 +15,7 @@ export const PROFILE = {
 	location: 'Vancouver, WA',
 	statement: 'Making complex software systems simpler, faster, and more reliable.',
 	intro:
-		'Over 20 years designing and evolving production software — from real-time applications to distributed backend systems.',
+		'Over 20 years building and evolving production software, from browser clients to the backend services behind them.',
 	specialties: ['Distributed Systems', 'Software Architecture', 'Real-Time Applications'],
 	photoAlt: 'Portrait of James Kunley',
 	// Path to a PDF in public/, e.g. '/resume.pdf'.
@@ -42,43 +42,43 @@ export const EXPERTISE: { title: string; icon: Icon; description: string }[] = [
 		title: 'Architecture & Modernization',
 		icon: 'architecture',
 		description:
-			'Designing service boundaries, transactional workflows, and event-driven systems — while evolving tightly coupled platforms through incremental change.',
+			'Drawing service boundaries, designing transactional and event-driven workflows, and untangling tightly coupled platforms while they stay in service.',
 	},
 	{
 		title: 'Performance Engineering',
 		icon: 'performance',
 		description:
-			'Investigating production bottlenecks, eliminating unnecessary I/O, and improving critical data paths through profiling, optimization, and caching.',
+			'Profiling slow systems under real load, removing wasted I/O, and caching where it pays off on the paths that matter most.',
 	},
 	{
 		title: 'Real-Time Systems & Data Integrity',
 		icon: 'realtime',
 		description:
-			'Keeping distributed services and browser applications synchronized while preserving consistency through concurrent state changes and asynchronous updates.',
+			'Keeping services and browser clients in sync, and keeping data correct when updates arrive concurrently or out of order.',
 	},
 ];
 
 export const IMPACT: { title: string; summary: string }[] = [
 	{
-		title: 'Provider Assignment at Scale',
+		title: 'Provider Scheduling',
 		summary:
-			'Reduced assignment-related provider idle time by approximately 90% through targeted scheduling optimizations on a healthcare platform handling roughly 10,000 visits per business day.',
+			'Cut assignment-related provider idle time by about 90% through scheduling optimizations on a healthcare platform handling roughly 10,000 visits each business day.',
 	},
 	{
-		title: 'Real-Time Messaging at Scale',
+		title: 'Real-Time Provider Messaging',
 		summary:
-			'Owned browser notification architecture supporting millions of messages daily across hundreds of provider interfaces, introducing delta-based updates to reduce unnecessary message traffic.',
+			'Owned the browser notification architecture carrying millions of messages a day to hundreds of provider interfaces, and introduced delta-based updates to cut redundant traffic.',
 	},
 	{
 		title: 'Core Platform Modernization',
 		summary:
-			'Led cross-team architectural work to modernize a central healthcare service, defining clearer boundaries for transaction processing, lifecycle management, and downstream integrations.',
+			'Led architecture across teams to modernize a central platform service, separating transaction processing, lifecycle management, and downstream integrations behind clear boundaries.',
 	},
 ];
 
 export const PHILOSOPHY = {
 	statement: 'Understand the system before changing it.',
-	body: 'I start with how systems actually behave in production, identify the constraints that matter, and favor focused, incremental improvements over unnecessary rewrites.',
+	body: 'I start with how a system actually behaves in production, find the constraints that matter, and prefer small, deliberate changes to rewrites.',
 };
 
 export const BACKGROUND = {
