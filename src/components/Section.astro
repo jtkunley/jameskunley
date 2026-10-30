@@ -1,0 +1,72 @@
+---
+interface Props {
+	id: string;
+	index: string;
+	title: string;
+	more?: { href: string; label: string };
+}
+
+const { id, index, title, more } = Astro.props;
+---
+
+<section class="section container" id={id} aria-labelledby={`${id}-title`}>
+	<header class="head">
+		<h2 id={`${id}-title`}>
+			<span class="index" aria-hidden="true">{index}</span>
+			{title}
+		</h2>
+		{
+			more && (
+				<a class="more" href={more.href}>
+					{more.label} <span class="arrow" aria-hidden="true">→</span>
+				</a>
+			)
+		}
+	</header>
+	<div class="body">
+		<slot />
+	</div>
+</section>
+
+<style>
+	.section {
+		display: grid;
+		gap: 2rem;
+		padding-block: clamp(4rem, 10vw, 7.5rem);
+	}
+	@media (min-width: 60rem) {
+		.section {
+			grid-template-columns: 14rem minmax(0, 1fr);
+			gap: 3rem;
+		}
+	}
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1rem;
+	}
+	@media (min-width: 60rem) {
+		.head {
+			flex-direction: column;
+			justify-content: flex-start;
+			gap: 1.5rem;
+		}
+	}
+	h2 {
+		display: flex;
+		gap: 0.9rem;
+		margin: 0;
+		font-family: var(--font-body);
+		font-size: var(--step--1);
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-text);
+		line-height: 1.7;
+	}
+	.index {
+		color: var(--color-accent);
+		font-variant-numeric: tabular-nums;
+	}
+</style>

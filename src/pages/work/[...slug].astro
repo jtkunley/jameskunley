@@ -1,0 +1,101 @@
+---
+import { type CollectionEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects } from '../../lib/content';
+
+export async function getStaticPaths() {
+	const projects = await getProjects();
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const { title, summary, role, period, stack, repo, link } = project.data;
+const { Content } = await render(project);
+
+const facts = [
+	{ term: 'Role', detail: role },
+	{ term: 'Period', detail: period },
+	{ term: 'Stack', detail: stack.join(', ') },
+].filter((fact) => fact.detail);
+---
+
+<BaseLayout title={title} description={summary} type="article">
+	<article class="container container--narrow">
+		<header class="page-header">
+			<p class="label"><a href="/work/">Work</a></p>
+			<h1>{title}</h1>
+			<p>{summary}</p>
+		</header>
+
+		{
+			(facts.length > 0 || repo || link) && (
+				<dl class="facts">
+					{facts.map(({ term, detail }) => (
+						<div>
+							<dt>{term}</dt>
+							<dd>{detail}</dd>
+						</div>
+					))}
+					{(repo || link) && (
+						<div>
+							<dt>Links</dt>
+							<dd class="links">
+								{repo && <a href={repo} rel="noopener">Source</a>}
+								{link && <a href={link} rel="noopener">Live</a>}
+							</dd>
+						</div>
+					)}
+				</dl>
+			)
+		}
+
+		<div class="prose">
+			<Content />
+		</div>
+
+		<footer class="article-footer">
+			<a class="more" href="/work/"><span aria-hidden="true">←</span> All work</a>
+		</footer>
+	</article>
+</BaseLayout>
+
+<style>
+	.label a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.label a:hover {
+		color: var(--color-text);
+	}
+	.facts {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+		gap: 1.5rem;
+		margin: 0 0 3.5rem;
+		padding-block: 1.5rem;
+		border-block: 1px solid var(--color-rule);
+		font-size: var(--step--1);
+	}
+	dt {
+		color: var(--color-muted);
+		margin-bottom: 0.25rem;
+	}
+	dd {
+		margin: 0;
+		color: var(--color-text);
+	}
+	.links {
+		display: flex;
+		gap: 1rem;
+	}
+	.article-footer {
+		margin-top: 5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-rule);
+	}
+</style>

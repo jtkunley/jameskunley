@@ -23,9 +23,11 @@ const projects = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		summary: z.string(),
-		tech: z.array(z.string()),
+		role: z.string().optional(),
+		period: z.string().optional(),
+		stack: z.array(z.string()).default([]),
 		repo: z.url().optional(),
-		demo: z.url().optional(),
+		link: z.url().optional(),
 		// Featured projects also appear on the homepage.
 		featured: z.boolean().default(false),
 		// Lower numbers are listed first.

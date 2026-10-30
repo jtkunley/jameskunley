@@ -1,0 +1,100 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	projects: CollectionEntry<'projects'>[];
+	headingLevel?: 'h2' | 'h3';
+}
+
+const { projects, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<ol class="work">
+	{
+		projects.map((project) => (
+			<li class="item">
+				<div class="main">
+					<Heading class="title">
+						<a href={`/work/${project.id}/`}>{project.data.title}</a>
+					</Heading>
+					<p class="summary">{project.data.summary}</p>
+				</div>
+				<div class="meta">
+					{project.data.role && <p>{project.data.role}</p>}
+					{project.data.period && <p class="period">{project.data.period}</p>}
+				</div>
+				<span class="arrow" aria-hidden="true">→</span>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.work {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--color-rule);
+	}
+	.item {
+		position: relative;
+		display: grid;
+		gap: 0.75rem 2rem;
+		padding-block: 2rem;
+		border-bottom: 1px solid var(--color-rule);
+	}
+	@media (min-width: 44rem) {
+		.item {
+			grid-template-columns: minmax(0, 1fr) 12rem 1.5rem;
+			align-items: baseline;
+		}
+	}
+	.title {
+		font-size: var(--step-2);
+		margin: 0 0 0.5rem;
+	}
+	.title a {
+		text-decoration: none;
+	}
+	/* Make the whole row a click target while keeping a single link. */
+	.title a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+	}
+	.summary {
+		margin: 0;
+		max-width: 36rem;
+		color: var(--color-muted);
+	}
+	.meta {
+		font-size: var(--step--1);
+		color: var(--color-muted);
+	}
+	.meta p {
+		margin: 0;
+	}
+	.period {
+		font-variant-numeric: tabular-nums;
+	}
+	.arrow {
+		display: none;
+		color: var(--color-muted);
+		transition:
+			transform 0.25s var(--ease),
+			color 0.25s var(--ease);
+	}
+	@media (min-width: 44rem) {
+		.arrow {
+			display: block;
+			justify-self: end;
+		}
+	}
+	.item:hover .title a {
+		color: var(--color-accent);
+	}
+	.item:hover .arrow {
+		color: var(--color-accent);
+		transform: translateX(4px);
+	}
+</style>

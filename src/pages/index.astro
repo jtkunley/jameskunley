@@ -2,11 +2,11 @@
 import { Image } from 'astro:assets';
 import profilePhoto from '../assets/profile.jpg';
 import PostList from '../components/PostList.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import Section from '../components/Section.astro';
+import WorkList from '../components/WorkList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPosts, getProjects } from '../lib/content';
-import { EXPERTISE, LINKS, PROFILE, SITE } from '../site.config';
+import { CONTACT, EXPERIENCE, EXPERTISE, LINKS, PROFILE, SITE } from '../site.config';
 
 const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 3);
 const recentPosts = (await getPosts()).slice(0, 3);
@@ -25,179 +25,263 @@ const personSchema = {
 <BaseLayout>
 	<script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-	<section class="hero container" aria-labelledby="intro-heading">
+	<section class="hero container" aria-labelledby="hero-name">
 		<div class="hero-text">
-			<p class="eyebrow">{PROFILE.role} · {PROFILE.location}</p>
-			<h1 id="intro-heading">{PROFILE.tagline}</h1>
-			<div class="intro">
-				{PROFILE.intro.map((paragraph) => <p>{paragraph}</p>)}
-			</div>
-			<div class="actions">
-				<a class="button button--primary" href={PROFILE.resume}>Download resume</a>
-				<a class="button" href={`mailto:${LINKS.email}`}>Get in touch</a>
-			</div>
-			<SocialLinks />
+			<p class="label">{PROFILE.role} · {PROFILE.location}</p>
+			<h1 id="hero-name" class="name">{PROFILE.name}</h1>
+			<p class="statement">{PROFILE.statement}</p>
+			<p class="intro">{PROFILE.intro}</p>
+			<ul class="hero-links inline-list">
+				<li><a class="more" href="#work">Selected work <span class="arrow" aria-hidden="true">→</span></a></li>
+				<li><a class="more" href="/blog/">Writing <span class="arrow" aria-hidden="true">→</span></a></li>
+			</ul>
 		</div>
-		<figure class="hero-photo">
+		<div class="hero-photo">
 			<Image
 				src={profilePhoto}
 				alt={PROFILE.photoAlt}
-				widths={[320, 480, 640]}
-				sizes="(min-width: 56rem) 20rem, 60vw"
+				widths={[400, 600, 800, 1000]}
+				sizes="(min-width: 60rem) 26rem, 90vw"
 				loading="eager"
 				fetchpriority="high"
 			/>
-			<figcaption><span class="status-dot" aria-hidden="true"></span>{PROFILE.availability}</figcaption>
-		</figure>
-	</section>
-
-	<section class="section container" aria-labelledby="expertise-heading">
-		<div class="section-head">
-			<p class="eyebrow">What I do</p>
-			<h2 id="expertise-heading">Engineering expertise</h2>
-		</div>
-		<div class="expertise">
-			{
-				EXPERTISE.map(({ area, detail, skills }) => (
-					<div class="area">
-						<h3>{area}</h3>
-						<p class="muted">{detail}</p>
-						<ul class="tag-list" aria-label={`${area} skills`}>
-							{skills.map((s) => <li>{s}</li>)}
-						</ul>
-					</div>
-				))
-			}
 		</div>
 	</section>
 
-	<section class="section container" aria-labelledby="projects-heading">
-		<div class="section-head">
-			<p class="eyebrow">Selected work</p>
-			<h2 id="projects-heading">Projects</h2>
-			<a class="more" href="/projects/">All projects <span aria-hidden="true">→</span></a>
-		</div>
-		<ul class="grid">
+	<Section id="expertise" index="01" title="Expertise">
+		<ol class="expertise">
 			{
-				featured.map((project) => (
+				EXPERTISE.map(({ title, body }) => (
 					<li>
-						<ProjectCard project={project} />
+						<h3>{title}</h3>
+						<p>{body}</p>
 					</li>
 				))
 			}
-		</ul>
-	</section>
+		</ol>
+	</Section>
+
+	<Section id="work" index="02" title="Selected work" more={{ href: '/work/', label: 'All work' }}>
+		<WorkList projects={featured} />
+	</Section>
+
+	<Section id="experience" index="03" title="Experience">
+		<ol class="experience">
+			{
+				EXPERIENCE.map(({ period, role, org, summary }) => (
+					<li>
+						<p class="period">{period}</p>
+						<div>
+							<h3>
+								{role} <span class="org">{org}</span>
+							</h3>
+							<p>{summary}</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+		<p class="resume">
+			<a class="more" href={PROFILE.resume}>Full résumé (PDF) <span class="arrow" aria-hidden="true">→</span></a>
+		</p>
+	</Section>
 
 	{
 		recentPosts.length > 0 && (
-			<section class="section container" aria-labelledby="writing-heading">
-				<div class="section-head">
-					<p class="eyebrow">Notes & essays</p>
-					<h2 id="writing-heading">Recent writing</h2>
-					<a class="more" href="/blog/">
-						All posts <span aria-hidden="true">→</span>
-					</a>
-				</div>
-				<PostList posts={recentPosts} headingLevel="h3" />
-			</section>
+			<Section id="writing" index="04" title="Writing" more={{ href: '/blog/', label: 'All writing' }}>
+				<PostList posts={recentPosts} headingLevel="h3" compact />
+			</Section>
 		)
 	}
+
+	<Section id="connect" index="05" title="Connect">
+		<p class="connect-lead">Always glad to talk about software, systems, or something I’ve written.</p>
+		<dl class="contact">
+			{
+				CONTACT.map(({ label, value, href }) => (
+					<div>
+						<dt>{label}</dt>
+						<dd>
+							<a href={href}>{value}</a>
+						</dd>
+					</div>
+				))
+			}
+		</dl>
+	</Section>
 </BaseLayout>
 
 <style>
+	/* Hero */
 	.hero {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 2.5rem;
-		align-items: center;
-		padding-block: clamp(3rem, 9vw, 6rem);
+		gap: 3rem;
+		padding-block: clamp(2.5rem, 7vw, 6rem) clamp(4rem, 10vw, 7.5rem);
 	}
-	@media (min-width: 56rem) {
+	@media (min-width: 60rem) {
 		.hero {
-			grid-template-columns: minmax(0, 1fr) 20rem;
-			gap: 4rem;
+			grid-template-columns: minmax(0, 1fr) clamp(18rem, 32vw, 26rem);
+			gap: clamp(3rem, 6vw, 6rem);
+			align-items: end;
 		}
 	}
-	.hero h1 {
-		max-width: 18ch;
-		margin-bottom: 1.5rem;
-	}
-	.intro {
-		max-width: var(--measure);
-		font-size: var(--step-1);
-		color: var(--color-muted);
-	}
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin: 2rem 0 1.75rem;
-	}
 	.hero-photo {
-		margin: 0;
-		max-width: 20rem;
+		max-width: 26rem;
+	}
+	@media (max-width: 59.99rem) {
+		.hero-photo {
+			order: -1;
+			max-width: min(15rem, 60vw);
+		}
 	}
 	.hero-photo img {
 		width: 100%;
 		aspect-ratio: 4 / 5;
 		object-fit: cover;
 		border-radius: var(--radius);
+		background: var(--color-surface);
 	}
-	figcaption {
-		display: flex;
-		align-items: center;
-		gap: 0.5em;
-		margin-top: 0.75rem;
-		font-size: var(--step--1);
+	.name {
+		font-size: var(--step-5);
+		line-height: 1;
+		letter-spacing: -0.03em;
+		margin: 0 0 2rem;
+	}
+	.statement {
+		font-family: var(--font-display);
+		font-size: var(--step-3);
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+		color: var(--color-text);
+		max-width: 22ch;
+		margin: 0 0 1.75rem;
+		text-wrap: balance;
+	}
+	.intro {
+		max-width: 36rem;
 		color: var(--color-muted);
+		margin: 0 0 2.5rem;
 	}
-	.status-dot {
-		width: 0.5rem;
-		height: 0.5rem;
-		border-radius: 50%;
-		background: #2f8f57;
+	.hero-links {
+		gap: 0.5rem 2rem;
 	}
 
-	.section {
-		padding-block: clamp(2.5rem, 6vw, 4rem);
-		border-top: 1px solid var(--color-rule);
+	@media (prefers-reduced-motion: no-preference) {
+		.hero-text,
+		.hero-photo {
+			animation: rise 0.9s var(--ease) both;
+		}
+		.hero-photo {
+			animation-delay: 0.1s;
+		}
 	}
-	.section-head {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: end;
-		column-gap: 1rem;
-		margin-bottom: 2rem;
-	}
-	.section-head .eyebrow {
-		grid-column: 1 / -1;
-	}
-	.section-head h2 {
-		margin: 0;
-	}
-	.more {
-		font-size: var(--step--1);
-		font-weight: 600;
-		text-decoration: none;
-		white-space: nowrap;
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
 	}
 
+	/* Expertise */
 	.expertise {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-		gap: 2.5rem;
-	}
-	.area h3 {
-		font-size: var(--step-1);
-		font-weight: 600;
-	}
-
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
-		gap: 1.25rem;
+		gap: 3rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+	.expertise li {
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-rule);
+	}
+	.expertise h3 {
+		font-size: var(--step-2);
+		margin: 0 0 0.75rem;
+	}
+	.expertise p {
+		margin: 0;
+		color: var(--color-muted);
+		max-width: 30rem;
+	}
+
+	/* Experience */
+	.experience {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--color-rule);
+	}
+	.experience li {
+		display: grid;
+		gap: 0.25rem 2rem;
+		padding-block: 1.75rem;
+		border-bottom: 1px solid var(--color-rule);
+	}
+	@media (min-width: 44rem) {
+		.experience li {
+			grid-template-columns: 10rem minmax(0, 1fr);
+		}
+	}
+	.period {
+		margin: 0;
+		font-size: var(--step--1);
+		color: var(--color-muted);
+		font-variant-numeric: tabular-nums;
+		line-height: 2;
+	}
+	.experience h3 {
+		font-size: var(--step-1);
+		margin: 0 0 0.5rem;
+	}
+	.org {
+		color: var(--color-muted);
+	}
+	.org::before {
+		content: '· ';
+	}
+	.experience p:not(.period) {
+		margin: 0;
+		color: var(--color-muted);
+		max-width: 38rem;
+	}
+	.resume {
+		margin: 2rem 0 0;
+	}
+
+	/* Connect */
+	.connect-lead {
+		font-family: var(--font-display);
+		font-size: var(--step-3);
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+		color: var(--color-text);
+		max-width: 20ch;
+		margin: 0 0 3rem;
+		text-wrap: balance;
+	}
+	.contact {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+		gap: 2rem;
+		margin: 0;
+	}
+	.contact div {
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--color-rule);
+	}
+	dt {
+		font-size: var(--step--1);
+		color: var(--color-muted);
+		margin-bottom: 0.35rem;
+	}
+	dd {
+		margin: 0;
+	}
+	dd a {
+		text-decoration-color: transparent;
+	}
+	dd a:hover {
+		text-decoration-color: currentColor;
 	}
 </style>

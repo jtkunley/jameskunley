@@ -8,22 +8,14 @@ const posts = await getPosts();
 
 <BaseLayout
 	title="Writing"
-	description="Technical writing on software engineering, systems design, and tooling."
+	description="Technical writing on software architecture, complex systems, and engineering practice."
 >
 	<div class="container container--narrow">
 		<header class="page-header">
-			<p class="eyebrow">Blog</p>
-			<h1>Writing</h1>
-			<p>Notes on software engineering, systems design, and the lessons learned along the way.</p>
-			<p class="feed"><a href="/rss.xml">Subscribe via RSS</a></p>
+			<p class="label">Writing</p>
+			<h1>Notes on building software</h1>
+			<p>Essays and technical notes on architecture, systems, and the practice of engineering. Also available via <a href="/rss.xml">RSS</a>.</p>
 		</header>
-		{posts.length > 0 ? <PostList posts={posts} /> : <p>No posts yet. Check back soon.</p>}
+		{posts.length > 0 ? <PostList posts={posts} /> : <p class="muted">Nothing published yet.</p>}
 	</div>
 </BaseLayout>
-
-<style>
-	.page-header .feed {
-		font-size: var(--step--1);
-		margin: 0;
-	}
-</style>

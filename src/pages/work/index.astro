@@ -1,0 +1,22 @@
+---
+import WorkList from '../../components/WorkList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects } from '../../lib/content';
+import { LINKS } from '../../site.config';
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+	title="Work"
+	description="Selected engineering work: the problems, the architectural decisions, and the outcomes."
+>
+	<div class="container">
+		<header class="page-header">
+			<p class="label">Work</p>
+			<h1>Selected work</h1>
+			<p>Systems I’ve designed and built: the context, the decisions behind them, and what changed as a result. Smaller projects live on <a href={LINKS.github} rel="me noopener">GitHub</a>.</p>
+		</header>
+		<WorkList projects={projects} headingLevel="h2" />
+	</div>
+</BaseLayout>

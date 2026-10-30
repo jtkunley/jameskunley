@@ -5,7 +5,7 @@ type Props = HTMLAttributes<'a'> & { href: string };
 
 const { href, ...props } = Astro.props;
 const path = Astro.url.pathname.replace(/\/?$/, '/');
-const isActive = href === '/' ? path === '/' : path.startsWith(href);
+const isActive = !href.includes('#') && (href === '/' ? path === '/' : path.startsWith(href));
 ---
 
 <a href={href} aria-current={isActive ? 'page' : undefined} {...props}><slot /></a>
@@ -18,10 +18,5 @@ const isActive = href === '/' ? path === '/' : path.startsWith(href);
 	a:hover,
 	a[aria-current='page'] {
 		color: var(--color-text);
-	}
-	a[aria-current='page'] {
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.45em;
 	}
 </style>
