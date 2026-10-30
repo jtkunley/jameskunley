@@ -5,7 +5,7 @@ export const SITE = {
 	url: 'https://jameskunley.com',
 	title: 'James Kunley',
 	description:
-		'James Kunley is a software engineer with over 20 years of experience in distributed systems, software architecture, and real-time applications.',
+		'James Kunley is a software engineer with over 20 years of experience in distributed systems, performance engineering, software architecture, and real-time applications.',
 	locale: 'en-US',
 };
 
@@ -14,7 +14,8 @@ export const PROFILE = {
 	role: 'Software Engineer',
 	location: 'Vancouver, WA',
 	statement: 'Making complex software systems simpler, faster, and more reliable.',
-	intro: 'Software engineer with over 20 years of experience designing, building, and evolving production systems.',
+	intro:
+		'Over 20 years designing and evolving production software — from real-time applications to distributed backend systems.',
 	specialties: ['Distributed Systems', 'Software Architecture', 'Real-Time Applications'],
 	photoAlt: 'Portrait of James Kunley',
 	// Path to a PDF in public/, e.g. '/resume.pdf'.
@@ -36,67 +37,51 @@ export const CONTACT = [
 
 export type Icon = 'architecture' | 'performance' | 'realtime';
 
-export const EXPERTISE: { title: string; icon: Icon; points: string[] }[] = [
+export const EXPERTISE: { title: string; icon: Icon; description: string }[] = [
 	{
-		title: 'System Architecture & Evolution',
+		title: 'Architecture & Modernization',
 		icon: 'architecture',
-		points: [
-			'Distributed systems and service architecture',
-			'System decomposition and modernization',
-			'Event-driven workflows and state machines',
-			'Incremental migration and maintainability',
-		],
+		description:
+			'Designing service boundaries, transactional workflows, and event-driven systems — while evolving tightly coupled platforms through incremental change.',
 	},
 	{
-		title: 'Performance & Reliability',
+		title: 'Performance Engineering',
 		icon: 'performance',
-		points: [
-			'High-throughput systems and concurrency',
-			'Database optimization and caching',
-			'Bottleneck identification and profiling',
-			'Observability and production reliability',
-		],
+		description:
+			'Investigating production bottlenecks, eliminating unnecessary I/O, and improving critical data paths through profiling, optimization, and caching.',
 	},
 	{
 		title: 'Real-Time Systems & Data Integrity',
 		icon: 'realtime',
-		points: [
-			'Event-driven messaging and asynchronous processing',
-			'Transactional consistency',
-			'Client/server state synchronization',
-			'End-to-end design across frontend and backend',
-		],
+		description:
+			'Keeping distributed services and browser applications synchronized while preserving consistency through concurrent state changes and asynchronous updates.',
 	},
 ];
 
 export const IMPACT: { title: string; summary: string }[] = [
 	{
-		title: 'High-Throughput Scheduling',
+		title: 'Provider Assignment at Scale',
 		summary:
-			'Improved provider assignment efficiency, reducing assignment-related idle time by approximately 90% while supporting growing production traffic.',
+			'Reduced assignment-related provider idle time by approximately 90% through targeted scheduling optimizations on a healthcare platform handling roughly 10,000 visits per business day.',
 	},
 	{
-		title: 'Distributed Platform Modernization',
+		title: 'Real-Time Messaging at Scale',
 		summary:
-			'Led architectural direction for decomposing complex services into clearer responsibilities, transactional workflows, and modular integrations.',
+			'Owned browser notification architecture supporting millions of messages daily across hundreds of provider interfaces, introducing delta-based updates to reduce unnecessary message traffic.',
 	},
 	{
-		title: 'Real-Time Data Synchronization',
+		title: 'Core Platform Modernization',
 		summary:
-			'Architected messaging infrastructure supporting millions of daily updates across hundreds of user interfaces, with an emphasis on reliability, efficiency, and data consistency.',
+			'Led cross-team architectural work to modernize a central healthcare service, defining clearer boundaries for transaction processing, lifecycle management, and downstream integrations.',
 	},
 ];
 
 export const PHILOSOPHY = {
-	statement: 'Good engineering starts with understanding the problem.',
-	body: [
-		'I believe in measuring before optimizing, simplifying before adding complexity, and evolving systems incrementally rather than rewriting them unnecessarily.',
-		'Reliable software comes from clear responsibilities, deliberate tradeoffs, and understanding how systems behave in production.',
-	],
+	statement: 'Understand the system before changing it.',
+	body: 'I start with how systems actually behave in production, identify the constraints that matter, and favor focused, incremental improvements over unnecessary rewrites.',
 };
 
 export const BACKGROUND = {
-	summary:
-		'Over two decades building production systems in financial technology, enterprise logistics, and healthcare platforms.',
+	summary: 'Experience across financial technology, enterprise logistics, and healthcare platforms.',
 	companies: ['TIBCO', 'HP', 'XPO Logistics', 'DexCare'],
 };

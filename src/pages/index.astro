@@ -123,7 +123,7 @@ const schema = {
 		visible.expertise && (
 			<Section id="expertise" index={indexOf('expertise')} title="Expertise">
 				<ul class="expertise">
-					{EXPERTISE.map(({ title, icon, points }) => (
+					{EXPERTISE.map(({ title, icon, description }) => (
 						<li>
 							<svg
 								class="icon"
@@ -138,11 +138,7 @@ const schema = {
 								))}
 							</svg>
 							<h3>{title}</h3>
-							<ul class="points">
-								{points.map((point) => (
-									<li>{point}</li>
-								))}
-							</ul>
+							<p class="description">{description}</p>
 						</li>
 					))}
 				</ul>
@@ -171,9 +167,7 @@ const schema = {
 				<Section id="philosophy" index={indexOf('philosophy')} title="Philosophy">
 					<blockquote class="philosophy">
 						<p class="philosophy-statement">{PHILOSOPHY.statement}</p>
-						{PHILOSOPHY.body.map((paragraph) => (
-							<p>{paragraph}</p>
-						))}
+						{PHILOSOPHY.body && <p>{PHILOSOPHY.body}</p>}
 					</blockquote>
 				</Section>
 			</div>
@@ -337,7 +331,7 @@ const schema = {
 		.expertise > li {
 			display: grid;
 			grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-			grid-template-areas: 'icon points' 'title points';
+			grid-template-areas: 'icon description' 'title description';
 			grid-template-rows: auto 1fr;
 			column-gap: 2.5rem;
 		}
@@ -347,8 +341,8 @@ const schema = {
 		.expertise h3 {
 			grid-area: title;
 		}
-		.expertise .points {
-			grid-area: points;
+		.expertise .description {
+			grid-area: description;
 		}
 	}
 	@media (min-width: 80rem) {
@@ -370,15 +364,11 @@ const schema = {
 		font-weight: 500;
 		margin: 0 0 1rem;
 	}
-	.points {
-		list-style: none;
+	.expertise .description {
 		margin: 0;
-		padding: 0;
 		color: var(--color-muted);
-		line-height: 1.45;
-	}
-	.points li + li {
-		margin-top: 0.8rem;
+		line-height: 1.55;
+		max-width: 34rem;
 	}
 
 	/* Impact */
@@ -432,7 +422,7 @@ const schema = {
 	.philosophy p:not(.philosophy-statement) {
 		font-size: var(--step-1);
 		color: var(--color-muted);
-		margin: 0 0 1rem;
+		margin: 0;
 	}
 
 	/* Background */
