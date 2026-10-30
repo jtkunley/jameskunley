@@ -1,63 +1,110 @@
-# Astro Starter Kit: Blog
+# jameskunley.com
 
-```sh
-npm create astro@latest -- --template blog
+Personal website and technical blog, built with [Astro](https://astro.build) and deployed to GitHub Pages at [jameskunley.com](https://jameskunley.com).
+
+Fully static, no client-side JavaScript, no backend.
+
+## Commands
+
+| Command           | Action                                          |
+| :---------------- | :---------------------------------------------- |
+| `npm install`     | Install dependencies                            |
+| `npm run dev`     | Start the dev server at `http://localhost:4321` |
+| `npm run check`   | Type-check Astro and TypeScript files           |
+| `npm run build`   | Build the production site to `./dist/`          |
+| `npm run preview` | Serve the production build locally              |
+
+## Editing content
+
+| What                                | Where                                            |
+| :---------------------------------- | :----------------------------------------------- |
+| Name, intro, links, expertise, nav  | `src/site.config.ts`                             |
+| Profile photo                       | `src/assets/profile.jpg` (portrait, ~4:5 ratio)  |
+| Social share image                  | `src/assets/og-default.png` (1200×630)           |
+| Resume                              | `public/resume.pdf`                              |
+| Blog posts                          | `src/content/blog/*.md` or `*.mdx`               |
+| Projects                            | `src/content/projects/*.md`                      |
+
+Search for `PLACEHOLDER` to find content that still needs real information.
+
+### Add a blog post
+
+Create `src/content/blog/my-post.md`; the filename becomes the URL (`/blog/my-post/`).
+
+```md
+---
+title: My post
+description: One-sentence summary used in listings and search results.
+pubDate: 2026-11-01
+tags: [go, databases]
+draft: true # optional: shown in dev, excluded from production
+---
+
+Post content in Markdown.
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Optional fields: `updatedDate`, `heroImage` (relative path to an image), `heroImageAlt`.
 
-Features:
+### Add a project
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+Create `src/content/projects/my-project.md`. The body is the technical write-up shown on `/projects/`.
 
-## 🚀 Project Structure
+```md
+---
+title: My Project
+summary: One-line description.
+tech: [TypeScript, PostgreSQL]
+repo: https://github.com/jtkunley/my-project
+demo: https://example.com # optional
+featured: true # show on the homepage (first three are used)
+order: 1 # lower numbers appear first
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+**Problem.** …
+
+**Approach.** …
+
+**Outcome.** …
+```
+
+Frontmatter for both collections is validated in `src/content.config.ts`, so mistakes fail the build.
+
+## Project structure
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+public/                 Static files copied as-is (CNAME, robots.txt, resume.pdf, favicon)
+src/
+  assets/               Images processed by Astro
+  components/           Reusable UI components
+  content/              Markdown content (blog, projects)
+  layouts/              Page shells (BaseLayout, BlogPost)
+  lib/content.ts        Collection queries (sorting, draft filtering)
+  pages/                Routes
+  styles/global.css     Design tokens and base styles
+  site.config.ts        Personal details and site settings
+.github/workflows/      GitHub Pages deployment
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site with the official [Astro GitHub Action](https://github.com/withastro/action) and deploys it to GitHub Pages. `public/CNAME` sets the custom domain.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+### One-time setup
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Create the GitHub repository `jtkunley/jtkunley.github.io` and push `main`.
+2. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+3. In **Settings → Pages → Custom domain**, enter `jameskunley.com` and save.
+4. In Namecheap, under **Domain List → jameskunley.com → Advanced DNS**, remove any parking or URL redirect records and add:
 
-## 🧞 Commands
+   | Type  | Host | Value                |
+   | :---- | :--- | :------------------- |
+   | A     | @    | 185.199.108.153      |
+   | A     | @    | 185.199.109.153      |
+   | A     | @    | 185.199.110.153      |
+   | A     | @    | 185.199.111.153      |
+   | CNAME | www  | jtkunley.github.io.  |
 
-All commands are run from the root of the project, from a terminal:
+   Optional IPv6 `AAAA` records for `@`: `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+5. Once DNS resolves and GitHub issues the certificate, check **Enforce HTTPS** in **Settings → Pages**.
+6. Recommended: verify the domain under your GitHub account's **Settings → Pages** to prevent domain takeover.
