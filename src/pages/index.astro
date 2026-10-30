@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import profilePhoto from '../assets/profile.jpg';
 import PostList from '../components/PostList.astro';
 import Section from '../components/Section.astro';
@@ -48,21 +48,48 @@ const icons: Record<Icon, string[]> = {
 	],
 };
 
-const personSchema = {
+const schemaPhoto = await getImage({ src: profilePhoto, width: 800, format: 'jpg' });
+const personId = `${SITE.url}/#person`;
+
+const schema = {
 	'@context': 'https://schema.org',
-	'@type': 'Person',
-	name: PROFILE.name,
-	jobTitle: PROFILE.role,
-	url: SITE.url,
-	email: `mailto:${LINKS.email}`,
-	sameAs: [LINKS.github, LINKS.linkedin],
-	knowsAbout: PROFILE.specialties,
-	address: { '@type': 'PostalAddress', addressLocality: 'Vancouver', addressRegion: 'WA' },
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${SITE.url}/#website`,
+			url: SITE.url,
+			name: SITE.title,
+			description: SITE.description,
+			inLanguage: SITE.locale,
+			publisher: { '@id': personId },
+		},
+		{
+			'@type': 'ProfilePage',
+			'@id': `${SITE.url}/#profile`,
+			url: SITE.url,
+			name: `${SITE.title} · ${PROFILE.role}`,
+			isPartOf: { '@id': `${SITE.url}/#website` },
+			mainEntity: { '@id': personId },
+		},
+		{
+			'@type': 'Person',
+			'@id': personId,
+			name: PROFILE.name,
+			jobTitle: PROFILE.role,
+			description: SITE.description,
+			url: SITE.url,
+			image: new URL(schemaPhoto.src, SITE.url).href,
+			email: `mailto:${LINKS.email}`,
+			sameAs: [LINKS.github, LINKS.linkedin],
+			knowsAbout: PROFILE.specialties,
+			address: { '@type': 'PostalAddress', addressLocality: 'Vancouver', addressRegion: 'WA', addressCountry: 'US' },
+		},
+	],
 };
 ---
 
 <BaseLayout>
-	<script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 
 	<section class="hero container" aria-labelledby="hero-name">
 		<div class="hero-text">
