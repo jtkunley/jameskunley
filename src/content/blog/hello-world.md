@@ -1,24 +1,20 @@
 ---
-title: Hello, world
-description: Why I’m starting a technical blog and what I plan to write about.
+title: Why I write
+description: Writing is how I check my own understanding. These notes are where that happens in public.
 pubDate: 2026-10-30
-tags: [meta]
+tags: [writing]
 ---
 
 <!-- PLACEHOLDER post: rewrite or replace. -->
 
-Welcome to my corner of the internet. I’m a software engineer, and this is where I’ll write about the things I build and the lessons I learn along the way.
+Most engineering decisions are made in conversation and then forgotten. The reasoning behind them disappears long before the code does.
 
-## What to expect
+Writing is how I keep that reasoning around. If I can't explain a decision plainly, I usually don't understand it as well as I thought.
 
-I plan to write about:
+## What you'll find here
 
-- **Systems design**: trade-offs I’ve made and how they turned out.
-- **Tooling**: small tools that make day-to-day engineering faster.
-- **Debugging stories**: the bugs that taught me something.
+- **Architecture**: the trade-offs behind real designs, including the ones that didn't age well.
+- **Systems**: how complex systems fail, and what makes them easier to operate.
+- **Practice**: the habits and tools that make day-to-day engineering better.
 
-## Why write?
-
-Writing forces clarity. If I can’t explain a decision in plain language, I probably don’t understand it well enough yet.
-
-Thanks for reading.
+The notes are written for other engineers, and they're as much for me as for anyone else.

@@ -18,10 +18,10 @@ Fully static, no client-side JavaScript, no backend.
 
 | What                                | Where                                            |
 | :---------------------------------- | :----------------------------------------------- |
-| Name, intro, links, expertise, nav  | `src/site.config.ts`                             |
+| Profile, expertise, experience, contact links, nav | `src/site.config.ts` |
 | Profile photo                       | `src/assets/profile.jpg` (portrait, ~4:5 ratio)  |
 | Social share image                  | `src/assets/og-default.png` (1200×630)           |
-| Resume                              | `public/resume.pdf`                              |
+| Résumé                              | `public/resume.pdf`                              |
 | Blog posts                          | `src/content/blog/*.md` or `*.mdx`               |
 | Projects                            | `src/content/projects/*.md`                      |
 
@@ -47,24 +47,25 @@ Optional fields: `updatedDate`, `heroImage` (relative path to an image), `heroIm
 
 ### Add a project
 
-Create `src/content/projects/my-project.md`. The body is the technical write-up shown on `/projects/`.
+Create `src/content/projects/my-project.md`. It's listed on `/work/`, and the body becomes the detail page at `/work/my-project/`.
 
 ```md
 ---
 title: My Project
-summary: One-line description.
-tech: [TypeScript, PostgreSQL]
-repo: https://github.com/jtkunley/my-project
-demo: https://example.com # optional
-featured: true # show on the homepage (first three are used)
+summary: One-sentence description of the system and the problem it solved.
+role: Technical lead # optional
+period: 2024–2025 # optional
+stack: [TypeScript, PostgreSQL, AWS]
+repo: https://github.com/jtkunley/my-project # optional
+link: https://example.com # optional
+featured: true # show under "Selected work" on the homepage (first three)
 order: 1 # lower numbers appear first
 ---
 
-**Problem.** …
-
-**Approach.** …
-
-**Outcome.** …
+## Context
+## Architecture
+## Challenges
+## Outcome
 ```
 
 Frontmatter for both collections is validated in `src/content.config.ts`, so mistakes fail the build.
