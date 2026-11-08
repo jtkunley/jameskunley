@@ -15,8 +15,8 @@ export const PROFILE = {
 	location: 'Vancouver, WA',
 	statement: 'Making complex software systems simpler, faster, and more reliable.',
 	intro:
-		'Over 20 years building and evolving production software, from browser clients to the backend services behind them.',
-	specialties: ['Distributed Systems', 'Software Architecture', 'Real-Time Applications'],
+		'Over 20 years building and modernizing production software across financial technology, enterprise logistics, and healthcare. I work across the stack, from real-time browser applications to distributed backend services, with a focus on architectural simplicity, data integrity, and solving difficult performance problems.',
+	specialties: ['Distributed Systems', 'Architecture & Performance', 'Real-Time Applications'],
 	photoAlt: 'Portrait of James Kunley',
 	// Path to a PDF in public/, e.g. '/resume.pdf'.
 	resume: '',
@@ -60,19 +60,34 @@ export const EXPERTISE: { title: string; icon: Icon; description: string }[] = [
 
 export const IMPACT: { title: string; summary: string }[] = [
 	{
-		title: 'Provider Scheduling',
+		title: 'Provider Scheduling & Operational Efficiency',
 		summary:
-			'Cut assignment-related provider idle time by about 90% through scheduling optimizations on a healthcare platform handling roughly 10,000 visits each business day.',
-	},
-	{
-		title: 'Real-Time Provider Messaging',
-		summary:
-			'Owned the browser notification architecture carrying millions of messages a day to hundreds of provider interfaces, and introduced delta-based updates to cut redundant traffic.',
+			'Improved time-sensitive scheduling workflows by identifying and resolving assignment bottlenecks, reducing provider idle time and improving operational throughput on a large-scale healthcare platform.',
 	},
 	{
 		title: 'Core Platform Modernization',
 		summary:
-			'Led architecture across teams to modernize a central platform service, separating transaction processing, lifecycle management, and downstream integrations behind clear boundaries.',
+			'Led cross-team architecture initiatives to modernize tightly coupled backend systems, establishing clearer service boundaries and separating transactional responsibilities from workflow coordination and integrations.',
+	},
+	{
+		title: 'Real-Time Messaging & Data Synchronization',
+		summary:
+			'Owned real-time notification architecture connecting distributed services with browser applications. Introduced incremental update strategies to reduce redundant traffic, improve responsiveness, and keep client state synchronized with backend changes.',
+	},
+	{
+		title: 'Transactional Integrity & Concurrency',
+		summary:
+			'Designed transactional workflows and concurrency-control mechanisms to preserve data consistency under heavy load, addressing conflicting updates and race conditions across asynchronous processes.',
+	},
+	{
+		title: 'Performance Engineering & Scalability',
+		summary:
+			'Improved backend performance through targeted database optimizations, smarter caching strategies, and more efficient data-access patterns, reducing unnecessary processing and improving system responsiveness.',
+	},
+	{
+		title: 'Cross-Team Architecture & Engineering Standards',
+		summary:
+			'Drove architectural alignment across engineering teams, establishing shared service patterns and data models that reduced fragmentation, improved maintainability, and made complex platforms easier to evolve.',
 	},
 ];
 
@@ -82,8 +97,9 @@ export const PHILOSOPHY = {
 };
 
 export const BACKGROUND = {
-	summary: 'Experience across financial technology, enterprise logistics, and healthcare platforms.',
-	companies: ['TIBCO', 'HP', 'XPO Logistics', 'DexCare'],
+	summary:
+		'Over two decades of engineering experience across financial technology, enterprise logistics, healthcare platforms, and enterprise software — from real-time user interfaces to distributed backend architecture.',
+	companies: ['TIBCO', 'HP', 'XPO Logistics', 'J2 Interactive', 'DexCare'],
 	personal: {
 		title: 'Beyond Engineering',
 		body: 'Outside of engineering, I’m usually spending time with my two kids, catching waves, or exploring backroads on my motorcycle.',
