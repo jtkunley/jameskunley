@@ -22,6 +22,8 @@
 	--step-5: clamp(3rem, 2rem + 5vw, 5.75rem);
 
 	--measure: 40rem;
+	/* Design docs are table- and diagram-heavy reference material, so they get a wider column. */
+	--measure-doc: 48rem;
 	--wide: 72rem;
 	--gutter: clamp(1.25rem, 5vw, 3rem);
 	--radius: 4px;
@@ -176,6 +178,10 @@ pre.astro-code {
 	max-width: calc(var(--measure) + 2 * var(--gutter));
 }
 
+.container--doc {
+	max-width: calc(var(--measure-doc) + 2 * var(--gutter));
+}
+
 .label {
 	font-family: var(--font-body);
 	font-size: var(--step--1);
@@ -259,10 +265,11 @@ pre.astro-code {
 
 /* Long-form Markdown content */
 
+/* One body font and size for paragraphs, lists, and tables; only headings and code differ. */
 .prose {
-	font-family: var(--font-display);
-	font-size: var(--step-1);
-	line-height: 1.7;
+	font-family: var(--font-body);
+	font-size: var(--step-0);
+	line-height: 1.65;
 	color: var(--color-soft);
 }
 
@@ -277,7 +284,8 @@ pre.astro-code {
 }
 
 .prose h2,
-.prose h3 {
+.prose h3,
+.prose h4 {
 	margin-top: 2.25em;
 	margin-bottom: 0;
 }
@@ -289,6 +297,12 @@ pre.astro-code {
 .prose h3 {
 	font-size: var(--step-1);
 	font-weight: 500;
+}
+
+.prose h4 {
+	margin-top: 1.75em;
+	font-size: var(--step-0);
+	font-weight: 600;
 }
 
 .prose ul,
@@ -314,7 +328,7 @@ pre.astro-code {
 
 .prose pre,
 .prose code {
-	font-size: 0.78em;
+	font-size: 0.875em;
 }
 
 .prose pre code {
@@ -328,13 +342,12 @@ pre.astro-code {
 .prose table {
 	width: 100%;
 	border-collapse: collapse;
-	font-family: var(--font-body);
-	font-size: var(--step--1);
 }
 
 .prose th,
 .prose td {
 	text-align: left;
+	vertical-align: top;
 	padding: 0.5em 0.75em;
 	border-bottom: 1px solid var(--color-rule);
 }
@@ -397,7 +410,8 @@ pre.astro-code {
 	}
 
 	.container,
-	.container--narrow {
+	.container--narrow,
+	.container--doc {
 		max-width: none;
 		padding-inline: 0;
 	}
@@ -416,7 +430,7 @@ pre.astro-code {
 	}
 
 	.prose {
-		font-size: 11pt;
+		font-size: 10pt;
 		line-height: 1.55;
 	}
 
@@ -428,8 +442,13 @@ pre.astro-code {
 		font-size: 12.5pt;
 	}
 
+	.prose h4 {
+		font-size: 10.5pt;
+	}
+
 	.prose h2,
-	.prose h3 {
+	.prose h3,
+	.prose h4 {
 		break-after: avoid;
 	}
 
