@@ -17,6 +17,6 @@ const design = Astro.props;
 const { Content } = await render(design);
 ---
 
-<DesignDoc {...design.data}>
+<DesignDoc {...design.data} slug={design.id}>
 	<Content />
 </DesignDoc>

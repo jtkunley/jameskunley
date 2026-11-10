@@ -4,6 +4,7 @@ import { execSync } from 'node:child_process';
 import { readdirSync, readFileSync } from 'node:fs';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { designPdfs } from './src/lib/pdf/design-pdfs';
 
 // Drafts are excluded from production builds, so they don't count as content.
 /** @param {string} dir */
@@ -42,6 +43,7 @@ export default defineConfig({
 		'/blog/reference-data-cache': '/designs/reference-data-cache/',
 	},
 	integrations: [
+		designPdfs(),
 		sitemap({
 			filter: (page) => !excluded.some((path) => new URL(page).pathname === path),
 			lastmod: lastCommit,

@@ -227,6 +227,25 @@ pre.astro-code {
 	transform: translateX(3px);
 }
 
+/* Breadcrumbs sit inside labels, so they stay unstyled until hovered. */
+.crumb {
+	color: inherit;
+	text-decoration: none;
+}
+
+.crumb:hover {
+	color: var(--color-accent);
+}
+
+/* Tags keep the muted list color but the standard link underline. */
+.tag {
+	color: inherit;
+}
+
+.tag:hover {
+	color: var(--color-accent);
+}
+
 .inline-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -349,6 +368,94 @@ pre.astro-code {
 .skip-link:focus {
 	top: 1rem;
 	color: var(--color-bg);
+}
+
+/* Print, also used to render design PDFs */
+
+@media print {
+	:root {
+		color-scheme: light;
+		--color-bg: #fff;
+		--color-surface: #f6f5f2;
+		--color-raised: #efede8;
+		--color-text: #151413;
+		--color-soft: #2b2926;
+		--color-muted: #6b665e;
+		--color-rule: #dedad3;
+		--color-rule-strong: #c9c4bb;
+		--color-accent: #7a5c30;
+	}
+
+	body {
+		font-size: 10pt;
+	}
+
+	.skip-link,
+	.site-header,
+	.site-footer {
+		display: none;
+	}
+
+	.container,
+	.container--narrow {
+		max-width: none;
+		padding-inline: 0;
+	}
+
+	.page-header {
+		padding-block: 0 1.5rem;
+	}
+
+	.page-header h1 {
+		font-size: 26pt;
+	}
+
+	.page-header p:not(.label) {
+		font-size: 11pt;
+		max-width: none;
+	}
+
+	.prose {
+		font-size: 11pt;
+		line-height: 1.55;
+	}
+
+	.prose h2 {
+		font-size: 16pt;
+	}
+
+	.prose h3 {
+		font-size: 12.5pt;
+	}
+
+	.prose h2,
+	.prose h3 {
+		break-after: avoid;
+	}
+
+	.prose p,
+	.prose li {
+		orphans: 3;
+		widows: 3;
+	}
+
+	.prose img,
+	.prose pre,
+	.prose tr {
+		break-inside: avoid;
+	}
+
+	/* Diagrams are drawn for the dark theme; invert them for paper. */
+	.prose img[src$='.svg'] {
+		max-height: 7.5in;
+		width: auto;
+		filter: invert(1) hue-rotate(180deg);
+	}
+
+	pre.astro-code,
+	pre.astro-code span {
+		color: var(--color-text) !important;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

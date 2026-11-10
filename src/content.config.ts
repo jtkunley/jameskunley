@@ -10,8 +10,9 @@ const designs = defineCollection({
 			description: z.string(),
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
-			tags: z.array(z.string()).default([]),
-			heroImage: image().optional(),
+		// Tags become URL segments under /designs/tags/.
+		tags: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Use lowercase kebab-case tags')).default([]),
+		heroImage: image().optional(),
 			heroImageAlt: z.string().default(''),
 			// Drafts are visible in `npm run dev` but excluded from production builds.
 			draft: z.boolean().default(false),

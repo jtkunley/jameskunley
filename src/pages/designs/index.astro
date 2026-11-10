@@ -1,9 +1,9 @@
 ---
 import DesignList from '../../components/DesignList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getDesigns } from '../../lib/content';
+import { getDesignTags, getDesigns } from '../../lib/content';
 
-const designs = await getDesigns();
+const [designs, tags] = await Promise.all([getDesigns(), getDesignTags()]);
 ---
 
 <BaseLayout
@@ -11,12 +11,44 @@ const designs = await getDesigns();
 	description="Engineering design documents on software architecture, distributed systems, and data integrity."
 	noindex={designs.length === 0}
 >
-	<div class="container container--narrow">
+	<div class="container container--narrow page">
 		<header class="page-header">
 			<p class="label">Designs</p>
 			<h1>Engineering designs</h1>
 			<p>Design documents for software systems: the problem, acceptance criteria, the chosen design, and the alternatives it ruled out.{designs.length > 0 && <> Also available via <a href="/rss.xml">RSS</a>.</>}</p>
 		</header>
+		{
+			tags.length > 0 && (
+				<section class="tags" aria-labelledby="tags-heading">
+					<h2 id="tags-heading" class="label">Browse by tag</h2>
+					<ul class="inline-list">
+						{tags.map(({ tag, count }) => (
+							<li>
+								<a class="tag" href={`/designs/tags/${tag}/`}>
+									#{tag} <span class="count">({count})</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
 		{designs.length > 0 ? <DesignList designs={designs} /> : <p class="muted">Nothing published yet.</p>}
 	</div>
 </BaseLayout>
+
+<style>
+	.page {
+		padding-bottom: clamp(4rem, 10vw, 7rem);
+	}
+	.tags {
+		margin-bottom: 2.5rem;
+	}
+	.tags .inline-list {
+		font-size: var(--step-0);
+	}
+	.count {
+		color: var(--color-muted);
+		font-variant-numeric: tabular-nums;
+	}
+</style>

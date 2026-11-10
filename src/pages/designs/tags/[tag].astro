@@ -1,0 +1,36 @@
+---
+import DesignList from '../../../components/DesignList.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getDesignTags, getDesigns } from '../../../lib/content';
+
+export async function getStaticPaths() {
+	const [designs, tags] = await Promise.all([getDesigns(), getDesignTags()]);
+	return tags.map(({ tag }) => ({
+		params: { tag },
+		props: { tag, designs: designs.filter((design) => design.data.tags.includes(tag)) },
+	}));
+}
+
+const { tag, designs } = Astro.props;
+const count = `${designs.length} ${designs.length === 1 ? 'design' : 'designs'}`;
+---
+
+<BaseLayout title={`Designs tagged #${tag}`} description={`Engineering design documents tagged #${tag}.`}>
+	<div class="container container--narrow">
+		<header class="page-header">
+			<p class="label"><a class="crumb" href="/designs/">Designs</a> · Tag</p>
+			<h1>#{tag}</h1>
+			<p>{count} tagged #{tag}.</p>
+		</header>
+		<DesignList designs={designs} />
+		<footer class="page-footer">
+			<a class="more" href="/designs/"><span aria-hidden="true">←</span> All designs</a>
+		</footer>
+	</div>
+</BaseLayout>
+
+<style>
+	.page-footer {
+		margin-block: 4rem clamp(4rem, 10vw, 7rem);
+	}
+</style>

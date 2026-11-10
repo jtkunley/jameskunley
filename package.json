@@ -20,8 +20,12 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "puppeteer": "^25.16.0",
     "typescript": "^6.0.3"
   },
   "private": true,
-  "description": "Personal website of James Kunley"
+  "description": "Personal website of James Kunley",
+  "allowScripts": {
+    "puppeteer@25.16.0": true
+  }
 }
