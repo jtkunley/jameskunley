@@ -3,34 +3,34 @@ import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 
 interface Props {
-	posts: CollectionEntry<'blog'>[];
+	designs: CollectionEntry<'designs'>[];
 	headingLevel?: 'h2' | 'h3';
 	// Compact rows show only the title and date.
 	compact?: boolean;
 }
 
-const { posts, headingLevel: Heading = 'h2', compact = false } = Astro.props;
+const { designs, headingLevel: Heading = 'h2', compact = false } = Astro.props;
 ---
 
-<ul class:list={['posts', { compact }]}>
+<ul class:list={['designs', { compact }]}>
 	{
-		posts.map((post) => (
+		designs.map((design) => (
 			<li class="item">
 				<Heading class="title">
-					<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-					{post.data.draft && <span class="draft">Draft</span>}
+					<a href={`/designs/${design.id}/`}>{design.data.title}</a>
+					{design.data.draft && <span class="draft">Draft</span>}
 				</Heading>
 				<p class="date">
-					<FormattedDate date={post.data.pubDate} />
+					<FormattedDate date={design.data.pubDate} />
 				</p>
-				{!compact && <p class="description">{post.data.description}</p>}
+				{!compact && <p class="description">{design.data.description}</p>}
 			</li>
 		))
 	}
 </ul>
 
 <style>
-	.posts {
+	.designs {
 		list-style: none;
 		margin: 0;
 		padding: 0;

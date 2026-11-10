@@ -17,10 +17,10 @@ Source for [jameskunley.com](https://jameskunley.com), the personal website of J
 ```text
 src/
 ├── site.config.ts      Profile, expertise, impact, philosophy, background, contacts
-├── pages/              Routes (homepage, 404, RSS, optional blog and work pages)
+├── pages/              Routes (homepage, 404, RSS, optional designs and work pages)
 ├── components/         Header, footer, section layout, lists
-├── layouts/            Base page shell and blog post layout
-├── content/            Markdown for blog posts and projects
+├── layouts/            Base page shell and design document layout
+├── content/            Markdown for design documents and projects
 ├── styles/global.css   Design tokens and base styles
 └── assets/             Profile photo and social preview image
 public/                 CNAME, robots.txt, favicon
@@ -41,7 +41,7 @@ npm run build   # production build in dist/
 
 Most content lives in [`src/site.config.ts`](src/site.config.ts). Homepage sections with no content are hidden automatically.
 
-Blog posts (`src/content/blog/*.md`) and projects (`src/content/projects/*.md`) are optional. Their pages and navigation links appear once the first file is added, and frontmatter is validated by [`src/content.config.ts`](src/content.config.ts).
+Engineering design documents (`src/content/designs/*.md`) and projects (`src/content/projects/*.md`) are optional. Their pages and navigation links appear once the first file is added, and frontmatter is validated by [`src/content.config.ts`](src/content.config.ts).
 
 ## Deployment
 

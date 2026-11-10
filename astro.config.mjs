@@ -16,7 +16,11 @@ const hasContent = (dir) => {
 };
 
 // Empty sections render as noindexed placeholders, so keep them out of the sitemap.
-const excluded = ['/404/', ...(hasContent('blog') ? [] : ['/blog/']), ...(hasContent('projects') ? [] : ['/work/'])];
+const excluded = [
+	'/404/',
+	...(hasContent('designs') ? [] : ['/designs/']),
+	...(hasContent('projects') ? [] : ['/work/']),
+];
 
 const lastCommit = (() => {
 	try {
@@ -32,6 +36,11 @@ export default defineConfig({
 	// because the site lives at the domain root.
 	site: 'https://jameskunley.com',
 	trailingSlash: 'ignore',
+	// Designs were briefly published under /blog/.
+	redirects: {
+		'/blog': '/designs/',
+		'/blog/reference-data-cache': '/designs/reference-data-cache/',
+	},
 	integrations: [
 		sitemap({
 			filter: (page) => !excluded.some((path) => new URL(page).pathname === path),

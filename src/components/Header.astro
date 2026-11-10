@@ -1,12 +1,12 @@
 ---
-import { getPosts, getProjects } from '../lib/content';
+import { getDesigns, getProjects } from '../lib/content';
 import { PROFILE } from '../site.config';
 import HeaderLink from './HeaderLink.astro';
 
-const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+const [projects, designs] = await Promise.all([getProjects(), getDesigns()]);
 const NAV = [
 	...(projects.length > 0 ? [{ href: '/work/', label: 'Work' }] : []),
-	...(posts.length > 0 ? [{ href: '/blog/', label: 'Writing' }] : []),
+	...(designs.length > 0 ? [{ href: '/designs/', label: 'Designs' }] : []),
 	{ href: '/#connect', label: 'Connect' },
 ];
 ---

@@ -204,7 +204,7 @@ pre.astro-code {
 	max-width: var(--measure);
 }
 
-/* Arrow links, e.g. "All writing →" */
+/* Arrow links, e.g. "All designs →" */
 .more {
 	display: inline-flex;
 	gap: 0.4em;

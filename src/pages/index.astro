@@ -1,10 +1,10 @@
 ---
 import { getImage, Image } from 'astro:assets';
 import profilePhoto from '../assets/profile.jpg';
-import PostList from '../components/PostList.astro';
+import DesignList from '../components/DesignList.astro';
 import Section from '../components/Section.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getPosts } from '../lib/content';
+import { getDesigns } from '../lib/content';
 import {
 	BACKGROUND,
 	CONTACT,
@@ -17,14 +17,14 @@ import {
 	SITE,
 } from '../site.config';
 
-const recentPosts = (await getPosts()).slice(0, 3);
+const recentDesigns = (await getDesigns()).slice(0, 3);
 
 const visible = {
 	expertise: EXPERTISE.length > 0,
 	impact: IMPACT.length > 0,
 	philosophy: PHILOSOPHY.statement !== '',
 	background: BACKGROUND.summary !== '',
-	writing: recentPosts.length > 0,
+	designs: recentDesigns.length > 0,
 	connect: true,
 };
 const shown = Object.entries(visible)
@@ -199,9 +199,9 @@ const schema = {
 	}
 
 	{
-		visible.writing && (
-			<Section id="writing" index={indexOf('writing')} title="Writing" more={{ href: '/blog/', label: 'All writing' }}>
-				<PostList posts={recentPosts} headingLevel="h3" compact />
+		visible.designs && (
+			<Section id="designs" index={indexOf('designs')} title="Designs" more={{ href: '/designs/', label: 'All designs' }}>
+				<DesignList designs={recentDesigns} headingLevel="h3" compact />
 			</Section>
 		)
 	}

@@ -1,0 +1,22 @@
+---
+import DesignList from '../../components/DesignList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getDesigns } from '../../lib/content';
+
+const designs = await getDesigns();
+---
+
+<BaseLayout
+	title="Designs"
+	description="Engineering design documents on software architecture, distributed systems, and data integrity."
+	noindex={designs.length === 0}
+>
+	<div class="container container--narrow">
+		<header class="page-header">
+			<p class="label">Designs</p>
+			<h1>Engineering designs</h1>
+			<p>Design documents for software systems: the problem, acceptance criteria, the chosen design, and the alternatives it ruled out.{designs.length > 0 && <> Also available via <a href="/rss.xml">RSS</a>.</>}</p>
+		</header>
+		{designs.length > 0 ? <DesignList designs={designs} /> : <p class="muted">Nothing published yet.</p>}
+	</div>
+</BaseLayout>

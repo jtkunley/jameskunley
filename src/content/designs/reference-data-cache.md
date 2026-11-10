@@ -144,7 +144,7 @@ A cache reader retains reference data in process memory. Applications create it 
 
 Each domain has a loader that retrieves its complete value. The loader may query a database, call an endpoint, or use another application-defined source.
 
-![Cache reader read path: a valid local entry is returned; otherwise the caller joins a running refresh or invokes the loader, populates local memory, and returns the value.](../../assets/blog/reference-data-cache/cache-reader.svg)
+![Cache reader read path: a valid local entry is returned; otherwise the caller joins a running refresh or invokes the loader, populates local memory, and returns the value.](../../assets/designs/reference-data-cache/cache-reader.svg)
 
 Local hits avoid the source entirely. Concurrent misses share the pending refresh, including its result or failure. Expired entries are replenished on demand.
 
@@ -152,7 +152,7 @@ Local hits avoid the source entirely. Concurrent misses share the pending refres
 
 A cache owner extends local reuse with access to a shared cache. On a local miss, it checks shared storage before invoking its loader.
 
-![Cache owner read path: after a local miss with no running refresh, a shared-cache hit is promoted to local memory; a miss or read failure invokes the loader, populates local memory, returns the value, and writes to the shared cache without awaiting confirmation.](../../assets/blog/reference-data-cache/cache-owner.svg)
+![Cache owner read path: after a local miss with no running refresh, a shared-cache hit is promoted to local memory; a miss or read failure invokes the loader, populates local memory, returns the value, and writes to the shared cache without awaiting confirmation.](../../assets/designs/reference-data-cache/cache-owner.svg)
 
 A shared hit avoids source loading. A successful source load becomes available locally before asynchronous shared-write confirmation.
 

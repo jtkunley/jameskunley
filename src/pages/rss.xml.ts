@@ -1,20 +1,20 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { getPosts } from '../lib/content';
+import { getDesigns } from '../lib/content';
 import { PROFILE, SITE } from '../site.config';
 
 export async function GET(context: APIContext) {
-	const posts = await getPosts();
+	const designs = await getDesigns();
 	return rss({
-		title: `${SITE.title} · Writing`,
-		description: `Technical writing by ${PROFILE.name}.`,
+		title: `${SITE.title} · Designs`,
+		description: `Engineering design documents by ${PROFILE.name}.`,
 		site: context.site ?? SITE.url,
-		items: posts.map((post) => ({
-			title: post.data.title,
-			description: post.data.description,
-			pubDate: post.data.pubDate,
-			categories: post.data.tags,
-			link: `/blog/${post.id}/`,
+		items: designs.map((design) => ({
+			title: design.data.title,
+			description: design.data.description,
+			pubDate: design.data.pubDate,
+			categories: design.data.tags,
+			link: `/designs/${design.id}/`,
 		})),
 	});
 }

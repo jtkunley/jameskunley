@@ -3,7 +3,7 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import { Font, getImage } from 'astro:assets';
 import defaultImage from '../assets/og-default.jpg';
-import { getPosts } from '../lib/content';
+import { getDesigns } from '../lib/content';
 import { LINKS, PROFILE, SITE } from '../site.config';
 
 interface Props {
@@ -32,7 +32,7 @@ const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} · ${PROF
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = await getImage({ src: image, width: 1200, format: 'jpg' });
 const ogImageURL = new URL(ogImage.src, Astro.site);
-const hasPosts = (await getPosts()).length > 0;
+const hasDesigns = (await getDesigns()).length > 0;
 ---
 
 <meta charset="utf-8" />
@@ -45,7 +45,7 @@ const hasPosts = (await getPosts()).length > 0;
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-{hasPosts && <link rel="alternate" type="application/rss+xml" title={`${SITE.title} · Writing`} href="/rss.xml" />}
+{hasDesigns && <link rel="alternate" type="application/rss+xml" title={`${SITE.title} · Designs`} href="/rss.xml" />}
 <link rel="me" href={LINKS.github} />
 <link rel="me" href={LINKS.linkedin} />
 
