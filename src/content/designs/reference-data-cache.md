@@ -40,11 +40,15 @@ It is useful across a system:
 - **Search and read models:** Index attributes, projections, and aggregates.
 - **Reporting and analytics:** Consistent classification, grouping, and descriptions.
 
-Without reuse, database queries repeatedly join reference tables, servers build the same values in memory for each request, and consumers repeatedly fetch them from endpoints. Each operation then discards its copy. Database buffering may reduce disk reads, but query execution, transfer, encoding, parsing, and allocation still recur as demand grows.
+Without reuse, database queries repeatedly join reference tables, servers build the same values in memory for each request, and consumers repeatedly fetch them from endpoints. Each operation then discards its copy.
 
-Small datasets can be loaded as complete snapshots. Large collections need lazy loading by identifier: fetching every record wastes memory and source work when consumers need only a few. Both patterns need the same freshness and failure policies, configured by data type.
+Database buffering may reduce disk reads, but query execution, transfer, encoding, parsing, and allocation still recur as demand grows. Concurrent requests and application instances can repeat this work simultaneously, multiplying load on the same dependencies.
 
-Expiry also creates an availability problem: a dependency may fail while the process still holds useful data. The cache must balance freshness with continued service, bound acquisition and recovery work, and let applications choose whether to wait or use retained data.
+Some consumers need a complete value or dataset; others need selected records by identifier. Fetching every record wastes memory and source work when only a few are used. Retaining data for every encountered identifier can also grow memory use as the workload touches more records.
+
+Reference data can change. Consumers need those changes to become visible, while acceptable data age and tolerance for outdated values vary by data type.
+
+Dependencies may fail, respond slowly, or never complete while useful values remain in memory. Expiry can then reduce availability, and repeated acquisition or recovery attempts can worsen an outage. Applications need to choose whether to wait or use retained values within an acceptable age, with bounded waiting and recovery work and explicit failure when neither can satisfy the request.
 
 ## 2. Acceptance Criteria
 
