@@ -34,7 +34,11 @@ export function designPdfs(): AstroIntegration {
 				const root = fileURLToPath(dir);
 				const headerTemplate = runningLine(`${PROFILE.name} · Engineering Design`, site ? new URL(site).host : '');
 				const server = await serveDirectory(root);
-				const browser = await puppeteer.launch({ headless: 'shell' });
+				// Ubuntu CI runners block Chrome's sandbox; it only renders this build's own pages.
+				const browser = await puppeteer.launch({
+					headless: 'shell',
+					args: process.env.CI ? ['--no-sandbox'] : [],
+				});
 				try {
 					const page = await browser.newPage();
 					for (const slug of slugs) {
