@@ -1,15 +1,19 @@
 // @ts-check
 
 import { execSync } from 'node:child_process';
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
+// Drafts are excluded from production builds, so they don't count as content.
 /** @param {string} dir */
-const hasContent = (dir) =>
-	readdirSync(new URL(`./src/content/${dir}/`, import.meta.url), { recursive: true }).some((f) =>
-		String(f).endsWith('.md'),
+const hasContent = (dir) => {
+	const base = new URL(`./src/content/${dir}/`, import.meta.url);
+	return readdirSync(base, { recursive: true }).some(
+		(f) =>
+			String(f).endsWith('.md') && !/^draft:\s*true\s*$/m.test(readFileSync(new URL(String(f), base), 'utf8')),
 	);
+};
 
 // Empty sections render as noindexed placeholders, so keep them out of the sitemap.
 const excluded = ['/404/', ...(hasContent('blog') ? [] : ['/blog/']), ...(hasContent('projects') ? [] : ['/work/'])];
